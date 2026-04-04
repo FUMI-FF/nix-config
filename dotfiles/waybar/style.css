@@ -1,0 +1,90 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans CJK JP", monospace;
+  font-size: 13px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(6, 8, 6, 0.65);
+  color: #a6ff9e;
+  border-radius: 14px;
+  padding: 7px 10px;
+
+  /* CRT-like glow */
+  box-shadow:
+    0 0 0 1px rgba(120, 255, 120, 0.35),
+    0 0 18px rgba(120, 255, 120, 0.18),
+    inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* common blocks */
+#workspaces button,
+#clock, #cpu, #memory, #network, #pulseaudio, #battery, #tray, #window {
+  padding: 4px 10px;
+  margin: 0 4px;
+  border-radius: 10px;
+  background: rgba(20, 30, 20, 0.55);
+  color: #a6ff9e;
+
+  box-shadow:
+    0 0 0 1px rgba(120, 255, 120, 0.28),
+    inset 0 0 0 1px rgba(120, 255, 120, 0.10);
+}
+
+/* window title is quieter */
+#window {
+  background: rgba(12, 18, 12, 0.45);
+  color: #7eea7e;
+}
+
+/* workspaces */
+#workspaces button {
+  background: rgba(10, 15, 10, 0.6);
+}
+
+#workspaces button.active {
+  background: linear-gradient(
+    180deg,
+    rgba(120, 255, 120, 0.30),
+    rgba(120, 255, 120, 0.18)
+  );
+  box-shadow:
+    0 0 0 1px rgba(120, 255, 120, 0.45),
+    0 0 14px rgba(120, 255, 120, 0.28);
+}
+
+#workspaces button:hover {
+  background: rgba(120, 255, 120, 0.18);
+}
+
+/* clock = terminal header vibe */
+#clock {
+  background: rgba(20, 40, 20, 0.75);
+  box-shadow:
+    0 0 0 1px rgba(120, 255, 120, 0.45),
+    0 0 16px rgba(120, 255, 120, 0.25);
+}
+
+/* network highlight */
+#network {
+  background: rgba(15, 30, 15, 0.65);
+}
+
+/* amber warnings */
+#battery.warning {
+  color: #ffd27d;
+  background: rgba(60, 45, 10, 0.65);
+  box-shadow:
+    0 0 0 1px rgba(255, 210, 125, 0.55),
+    0 0 14px rgba(255, 210, 125, 0.25);
+}
+
+#battery.critical {
+  color: #ff9b6a;
+  background: rgba(60, 25, 15, 0.75);
+  box-shadow:
+    0 0 0 1px rgba(255, 155, 105, 0.65),
+    0 0 18px rgba(255, 155, 105, 0.35);
+}

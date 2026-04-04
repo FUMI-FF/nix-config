@@ -1,0 +1,51 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "margin-top": 10,
+  "margin-left": 12,
+  "margin-right": 12,
+  "spacing": 10,
+
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "tray"],
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "all-outputs": true
+  },
+
+  "hyprland/window": {
+    "max-length": 40,
+    "separate-outputs": true
+  },
+
+  "clock": {
+    "format": "  {:%a %m/%d  %H:%M}",
+    "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+  },
+
+  "cpu": { "format": "  {usage}%" },
+  "memory": { "format": "  {used:0.1f}G" },
+
+  "network": {
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "  wired",
+    "format-disconnected": "  offline",
+    "tooltip-format-wifi": "{essid}\n{ipaddr}"
+  },
+
+  "pulseaudio": {
+    "format": "  {volume}%",
+    "format-muted": "  muted",
+    "on-click": "pavucontrol"
+  },
+
+  "battery": {
+    "format": "  {capacity}%",
+    "format-charging": "  {capacity}%",
+    "states": { "warning": 30, "critical": 15 }
+  }
+}
