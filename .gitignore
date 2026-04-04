@@ -1,0 +1,18 @@
+# nix
+result
+result-*
+*.drv
+
+# mac / editor
+.DS_Store
+
+# secrets（念のため）
+*.key
+*.pem
+*.crt
+
+# swap
+*.swp
+
+# logs
+*.log
