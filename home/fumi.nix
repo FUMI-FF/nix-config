@@ -22,16 +22,7 @@ in
   home.file."Pictures/wallpapers/pixel_town.jpg".source =
     ../assets/pixel_town.jpg;
 
-  # ---- hyprpaper 設定 ----
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    wallpaper {
-      monitor = ,
-      path = ${wallpaper}
-    }
-  '';
-  xdg.configFile."hypr/hyprland.conf".source =
-    ../dotfiles/hypr/hyprland.conf;
-
+  xdg.configFile."hypr".source = ../dotfiles/hypr;
   xdg.configFile."waybar".source = ../dotfiles/waybar;
   xdg.configFile."wofi".source = ../dotfiles/wofi;
   xdg.configFile."nvim".source = ../dotfiles/nvim;
@@ -58,5 +49,22 @@ in
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.git = {
+    enable = true;
+
+    userName = "fumi";
+    userEmail = "expugnatiomundi@gmail.com";
+
+    aliases = {
+      co = "checkout";
+      br = "branch";
+      ci = "commit";
+      st = "status";
+
+      lg = "log --oneline --graph --decorate --all";
+      amend = "commit --amend --no-edit";
+    };
   };
 }
