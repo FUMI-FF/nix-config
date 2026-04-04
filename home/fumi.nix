@@ -54,17 +54,25 @@ in
   programs.git = {
     enable = true;
 
-    userName = "fumi";
-    userEmail = "expugnatiomundi@gmail.com";
+    settings = {
+      user = {
+        name = "fumi";
+        email = "expugnatiomundi@gmail.com";
+      };
 
-    aliases = {
-      co = "checkout";
-      br = "branch";
-      ci = "commit";
-      st = "status";
+      alias = {
+        co = "checkout";
+        br = "branch";
+        ci = "commit";
+        st = "status";
 
-      lg = "log --oneline --graph --decorate --all";
-      amend = "commit --amend --no-edit";
+        lg = "log --oneline --graph --decorate --all";
+        amend = "commit --amend --no-edit";
+      };
+
+      init.defaultBranch = "main";
+      core.editor = "nvim";
+      color.ui = "auto";
     };
   };
 }
