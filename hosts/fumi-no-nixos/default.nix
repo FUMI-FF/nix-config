@@ -32,7 +32,7 @@
     fcitx5.addons = with pkgs; [
       fcitx5-skk
       fcitx5-gtk
-      fcitx5-qt
+      libsForQt5.fcitx5-qt
     ];
   };
 
