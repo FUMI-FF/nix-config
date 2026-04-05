@@ -1,7 +1,5 @@
 { pkgs, ... }:
-let
-  wallpaper = "/home/fumi/Pictures/wallpapers/pixel_town.jpg";
-in
+
 {
   home.username = "fumi";
   home.homeDirectory = "/home/fumi";
@@ -18,7 +16,6 @@ in
     wl-clipboard
   ];
 
-  # ---- wallpaper 配置 ----
   home.file."Pictures/wallpapers/pixel_town.jpg".source =
     ../assets/pixel_town.jpg;
 
@@ -28,7 +25,6 @@ in
   xdg.configFile."nvim".source = ../dotfiles/nvim;
   xdg.configFile."fcitx5".source = ../dotfiles/fcitx5;
 
-  # programs 
   programs.starship.enable = true;
 
   programs.zsh = {
@@ -44,8 +40,6 @@ in
     };
   };
 
-
-  # fzf
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
@@ -53,7 +47,6 @@ in
 
   programs.git = {
     enable = true;
-
     settings = {
       user = {
         name = "fumi";
@@ -65,7 +58,6 @@ in
         br = "branch";
         ci = "commit";
         st = "status";
-
         lg = "log --oneline --graph --decorate --all";
         amend = "commit --amend --no-edit";
       };
