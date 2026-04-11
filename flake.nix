@@ -31,4 +31,26 @@
       ];
     };
   };
+  # let
+  #   system = "x86_64-linux";
+  #   host = "fumi-no-nixos";
+  # in {
+  #   nixosConfigurations."fumi-no-nixos" = nixpkgs.lib.nixosSystem {
+  #     inherit system;
+
+  #     modules = [
+  #       ./hosts/${host}/hardware-configuration.nix
+  #       ./hosts/${host}/default.nix
+
+  #       # Home Manager を NixOS module として統合
+  #       home-manager.nixosModules.home-manager
+  #       {
+  #         home-manager.useGlobalPkgs = true;
+  #         home-manager.useUserPackages = true;
+  #         home-manager.backupFileExtension = "bak";
+  #         home-manager.users.fumi = import ./home/fumi.nix;
+  #       }
+  #     ];
+  #   };
+  # };
 }
