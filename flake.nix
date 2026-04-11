@@ -11,9 +11,9 @@
   outputs = { self, nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
-    host = "fumi-no-nixos";
+    host = "fumi-main";
   in {
-    nixosConfigurations."fumi-no-nixos" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."fumi-main" = nixpkgs.lib.nixosSystem {
       inherit system;
 
       modules = [
