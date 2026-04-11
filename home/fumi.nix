@@ -16,8 +16,8 @@
     wl-clipboard
   ];
 
-  home.file."Pictures/wallpapers/pixel_town.jpg".source =
-    ../assets/pixel_town.jpg;
+  home.file."Pictures/wallpapers/wallpaper.jpg".source =
+    ../assets/wallpaper.jpg;
 
   xdg.configFile."hypr".source = ../dotfiles/hypr;
   xdg.configFile."waybar".source = ../dotfiles/waybar;
