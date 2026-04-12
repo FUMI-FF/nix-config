@@ -16,8 +16,8 @@
     wl-clipboard
   ];
 
-  home.file."Pictures/wallpapers/wallpaper.jpg".source =
-    ../assets/wallpaper.jpg;
+  home.file."Pictures/wallpapers/wallpaper.png".source =
+    ../assets/wallpaper.png;
 
   xdg.configFile."hypr".source = ../dotfiles/hypr;
   xdg.configFile."waybar".source = ../dotfiles/waybar;
