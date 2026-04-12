@@ -37,6 +37,7 @@
       tree = "eza --tree --icons";
       copy = "wl-copy";
       vim = "nvim";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nix-config#$(hostname)"
     };
   };
 
