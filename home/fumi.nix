@@ -8,6 +8,7 @@
   home.packages = with pkgs; [
     neovim
     firefox
+    vivaldi
     wofi
     waybar
     eza
