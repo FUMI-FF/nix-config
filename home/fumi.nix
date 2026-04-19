@@ -15,6 +15,7 @@
     fzf
     starship
     wl-clipboard
+    nodejs
   ];
 
   home.file."Pictures/wallpapers/wallpaper.png".source =
