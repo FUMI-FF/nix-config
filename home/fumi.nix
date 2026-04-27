@@ -33,6 +33,10 @@
     enable = true;
     enableCompletion = true;
 
+    initContent = ''
+      export PATH="$HOME/.npm-global/bin:$PATH"
+    '';
+
     shellAliases = {
       ls = "eza --icons";
       ll = "eza -al --icons";
