@@ -16,6 +16,7 @@
     neovim
     firefox
     vivaldi
+    bottles
     wofi
     waybar
     eza
