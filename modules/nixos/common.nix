@@ -57,6 +57,11 @@
   programs.zsh.enable = true;
   programs.hyprland.enable = true;
 
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = false;
@@ -87,6 +92,7 @@
     bat
     unzip
     unar
+    vulkan-tools
     ripgrep
     fd
     bottom
