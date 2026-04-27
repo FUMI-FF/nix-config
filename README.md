@@ -1,116 +1,106 @@
 # NixOS setup
 
-This repository manages my NixOS system with flakes and Home Manager.
+This repository manages NixOS hosts with flakes and Home Manager.
 
 ## Structure
 
 - `flake.nix`
-  - entry point
+  - host registry and shared user defaults
+- `modules/nixos/`
+  - reusable NixOS modules
 - `hosts/<hostname>/`
   - machine-specific NixOS config
+- `home/default.nix`
+  - reusable Home Manager config
 - `home/fumi.nix`
-  - user environment
+  - compatibility wrapper for the current user
 - `dotfiles/`
   - application config files
 - `assets/`
   - static assets such as wallpapers
-
-## Concepts
-
-- `hosts/**`
-  - OS / machine-level configuration
-  - boot, networking, users, display manager, input method, fonts
-- `home/fumi.nix`
-  - user-level configuration
-  - zsh, git, packages, dotfiles placement
-- `dotfiles/`
-  - actual config contents for applications like Hyprland, Waybar, Wofi, Neovim
 
 ## Rebuild on current machine
 
 ```bash
 cd ~/nix-config
 sudo nixos-rebuild switch --flake .#$(hostname)
-````
+```
 
 Or explicitly:
 
 ```bash
-sudo nixos-rebuild switch --flake .#fumi-no-nixos
+sudo nixos-rebuild switch --flake .#fumi-main
 ```
 
 ## Add a new machine
 
-### 1. Clone this repository
-
-```bash
-git clone <repo-url>
-cd nix-config
-```
-
-### 2. Create a host directory
-
 Replace `<new-host>` with the new machine name.
 
 ```bash
+git clone <repo-url> ~/nix-config
+cd ~/nix-config
 mkdir -p hosts/<new-host>
 sudo nixos-generate-config --dir ./hosts/<new-host>
 ```
 
-This generates:
-
-* `hosts/<new-host>/hardware-configuration.nix`
-* `hosts/<new-host>/default.nix`
-
-### 3. Replace generated `default.nix`
-
-The generated `default.nix` is only a temporary scaffold.
-
-Copy the existing host config and edit it for the new machine:
-
-```bash
-cp hosts/fumi-no-nixos/default.nix hosts/<new-host>/default.nix
-```
-
-Then update at least:
+Replace the generated `hosts/<new-host>/default.nix` with a small host file:
 
 ```nix
-networking.hostName = "<new-host>";
+{ hostName, ... }:
+
+{
+  networking.hostName = hostName;
+}
 ```
 
-### 4. Add the new host to `flake.nix`
-
-Example:
+Register the host in `flake.nix`:
 
 ```nix
-nixosConfigurations.<new-host> = nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
+hosts = {
+  fumi-main = {
+    modules = [
+      ./modules/nixos/bluetooth-audio.nix
+    ];
+  };
+
+  fumi-no-nixos = { };
+
+  <new-host> = { };
+};
+```
+
+If the new machine needs host-specific modules, add them under `modules`:
+
+```nix
+<new-host> = {
   modules = [
-    ./hosts/<new-host>/hardware-configuration.nix
-    ./hosts/<new-host>/default.nix
-
-    home-manager.nixosModules.home-manager
-    {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.backupFileExtension = "bak";
-
-      home-manager.users.fumi = import ./home/fumi.nix;
-    }
+    ./modules/nixos/bluetooth-audio.nix
   ];
 };
 ```
 
-### 5. Commit new files
+If the new machine should use another Linux architecture or user:
 
-Flakes only see tracked files, so make sure new files are added to git.
+```nix
+<new-host> = {
+  system = "aarch64-linux";
+  user = {
+    username = "alice";
+    fullName = "Alice";
+    gitName = "Alice";
+    gitEmail = "alice@example.com";
+  };
+};
+```
+
+Commit the new files. Flakes only see tracked files.
 
 ```bash
 git add flake.nix hosts/<new-host>
 git commit -m "Add host <new-host>"
 ```
 
-### 6. Apply configuration on the new machine
+Apply the configuration:
 
 ```bash
 sudo nixos-rebuild switch --flake .#<new-host>
@@ -118,44 +108,14 @@ sudo nixos-rebuild switch --flake .#<new-host>
 
 ## Notes
 
-### Hardware config is machine-specific
+`hardware-configuration.nix` is machine-specific. Generate it on each PC and do not copy it from another machine.
 
-`hardware-configuration.nix` is generated per machine and should not be shared across different PCs.
+Shared NixOS settings live in `modules/nixos/common.nix`. Optional shared features, such as Bluetooth audio, live in separate modules so each host can opt in.
 
-### Flakes only see tracked files
+Home Manager receives `username`, `homeDirectory`, `gitName`, and `gitEmail` from `flake.nix`. Dotfiles should avoid hard-coded `/home/<user>` paths; generate those files from Home Manager when a path depends on the user.
 
-If a file exists locally but is not added to git, Nix may fail with `path does not exist`.
-
-Example:
-
-```bash
-git add assets/pixel_town.jpg
-```
-
-### Home Manager file conflicts
-
-If Home Manager reports that a file would be clobbered, existing files may need to be backed up or removed.
-
-This repo uses:
+If Home Manager reports that a file would be clobbered, this repo uses:
 
 ```nix
 home-manager.backupFileExtension = "bak";
 ```
-
-### Hyprland / Hyprpaper
-
-* Hyprland is enabled in `hosts/**`
-* config files are placed from `dotfiles/hypr`
-* wallpapers are stored under `assets/` and linked into `~/Pictures/wallpapers/`
-
-## Current workflow
-
-* frequently edited app configs stay in `dotfiles/`
-* package installation and user environment are managed by Nix / Home Manager
-* stable or shared settings can later be moved further into Nix modules
-
-## Future improvements
-
-* split common host config into `hosts/common`
-* automate host creation
-* reduce manual `flake.nix` edits when adding new machines
