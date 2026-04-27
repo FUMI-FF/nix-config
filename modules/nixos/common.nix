@@ -85,6 +85,8 @@
     ghostty
     pavucontrol
     bat
+    unzip
+    unar
     ripgrep
     fd
     bottom
