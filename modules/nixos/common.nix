@@ -12,6 +12,12 @@
 
   networking.networkmanager.enable = true;
 
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
+
   time.timeZone = "Asia/Tokyo";
 
   i18n.defaultLocale = "en_US.UTF-8";
