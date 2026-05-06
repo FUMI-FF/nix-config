@@ -11,10 +11,30 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.dispatcherScripts = [
+    {
+      source = pkgs.writeShellScript "enable-wake-on-lan" ''
+        set -eu
+
+        case "''${2:-}" in
+          up | connectivity-change) ;;
+          *) exit 0 ;;
+        esac
+
+        iface="''${DEVICE_IFACE:-}"
+        [ -n "$iface" ] || exit 0
+
+        if [ -d "/sys/class/net/$iface" ] && [ "$(cat "/sys/class/net/$iface/type")" = 1 ]; then
+          ${pkgs.ethtool}/bin/ethtool -s "$iface" wol g 2>/dev/null || true
+        fi
+      '';
+      type = "basic";
+    }
+  ];
 
   services.logind.settings.Login = {
-    HandleLidSwitch = "ignore";
-    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
 
