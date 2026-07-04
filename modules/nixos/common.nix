@@ -123,7 +123,7 @@
     ripgrep
     fd
     bottom
-    neofetch
+    fastfetch
   ];
 
   system.stateVersion = "25.11";

@@ -23,6 +23,7 @@
     starship
     wl-clipboard
     nodejs
+    whois
   ];
 
   home.file."Pictures/wallpapers/wallpaper.png".source = ../assets/wallpaper.png;
