@@ -63,13 +63,6 @@
     ];
   };
 
-  environment.sessionVariables = {
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
-    XMODIFIERS = "@im=fcitx";
-    INPUT_METHOD = "fcitx";
-  };
-
   users.users.${username} = {
     isNormalUser = true;
     description = fullName;
@@ -81,7 +74,10 @@
   };
 
   programs.zsh.enable = true;
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
 
   hardware.graphics = {
     enable = true;
@@ -90,6 +86,7 @@
 
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
+  services.displayManager.defaultSession = "hyprland-uwsm";
   services.desktopManager.gnome.enable = false;
   services.flatpak.enable = true;
 
