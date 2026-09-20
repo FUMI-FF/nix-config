@@ -15,7 +15,8 @@
   home.packages = with pkgs; [
     neovim
     firefox
-    vivaldi
+    # Keep Chromium on XWayland so it consistently uses the Fcitx GTK module.
+    (vivaldi.override { commandLineArgs = "--ozone-platform=x11"; })
     wofi
     waybar
     eza
