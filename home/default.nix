@@ -24,6 +24,8 @@
     starship
     wl-clipboard
     nodejs
+    uv
+    ffmpeg
     whois
   ];
 
