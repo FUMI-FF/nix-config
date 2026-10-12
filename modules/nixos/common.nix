@@ -73,10 +73,13 @@
     description = fullName;
     shell = pkgs.zsh;
     extraGroups = [
+      "docker"
       "networkmanager"
       "wheel"
     ];
   };
+
+  virtualisation.docker.enable = true;
 
   programs.zsh.enable = true;
   programs.hyprland = {
