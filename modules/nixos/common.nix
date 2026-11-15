@@ -82,6 +82,10 @@
   virtualisation.docker.enable = true;
 
   programs.zsh.enable = true;
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
   programs.hyprland = {
     enable = true;
     withUWSM = true;
